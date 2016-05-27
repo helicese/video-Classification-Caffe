@@ -1,7 +1,11 @@
 video/*
 img/*
 test.py
-
+caffe/.build_release/*
+caffe/build/*
+caffe/data/*
+caffe/models/*
+caffe/python/*
 
 
 
