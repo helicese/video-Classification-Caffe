@@ -1,5 +1,5 @@
-video/*
-img/*
+video/
+img/
 test.py
 caffe/.build_release/*
 caffe/build/*
