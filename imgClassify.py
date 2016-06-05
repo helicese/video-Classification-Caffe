@@ -38,9 +38,9 @@ def createTransformer(net) :
 
 
 
-def classfyImg(path):
-    net = setUpNet()
-    transformer = createTransformer(net)
+def classifyImg(net, transformer, path):
+    # net = setUpNet()
+    # transformer = createTransformer(net)
     image = caffe.io.load_image(path)
     transformed_image = transformer.preprocess('data', image)
     plt.imshow(image)
@@ -59,9 +59,9 @@ def classfyImg(path):
         print('no label files')     
     labels = np.loadtxt(labels_file, str, delimiter='\t')
     print '>>>output label:', labels[output_prob.argmax()]
+    return labels[output_prob.argmax()]
     # sort top five predictions from softmax output
-    top_inds = output_prob.argsort()[::-1][:5]  # reverse sort and take five largest items
+    # top_inds = output_prob.argsort()[::-1][:5]  # reverse sort and take five largest items
 
-    print '>>>probabilities and labels:', zip(output_prob[top_inds], labels[top_inds])
+    # print '>>>probabilities and labels:', zip(output_prob[top_inds], labels[top_inds])
 
-classfyImg('./img/demo/0_13.jpg')
