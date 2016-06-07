@@ -6,7 +6,7 @@ cwd = os.getcwd()
 print(cwd)
 # imgPath = os.listdir('./img/Megamind/')
 # print(imgPath)
-videoPath = './video/Megamind.avi'
+# videoPath = './video/Megamind.avi'
 # print(splitVideo(videoPath))
 def getFileList(path):
     path = str(path)
@@ -46,4 +46,4 @@ def classifyVideo(videoPath):
     finalResult['class'] = classResult
     return finalResult
 
-print classifyVideo(videoPath)
+# print classifyVideo(videoPath)
