@@ -47,7 +47,7 @@ function previewFile(file) {
     var fileName = file.name;
     var filesize = Math.floor((file.size)/1024); 
     var fileType = file.type; 
-    console.log(fileType.slice(0,5));
+    // console.log(fileType.slice(0,5));
     if(fileType.slice(0,5) == 'video') {
         var videoPath = window.URL.createObjectURL(file);
         var str = "<video src='"+videoPath+"' controls></video>"; 
@@ -68,11 +68,16 @@ function uploadFiles(files) {
 
     //use ajax to send the video
     if (tests.formdata) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/classify_upload');
-      xhr.onload = function() {
-        progress.value = progress.innerHTML = 100;
-      };
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/classify_upload');
+        xhr.onload = function() {
+            progress.value = progress.innerHTML = 100;
+        };
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+        }
+    };
 
       if (tests.progress) {
         xhr.upload.onprogress = function (event) {
@@ -104,6 +109,7 @@ if ('draggable' in document.createElement('span')) {
         // handle files
         console.log(files);
         uploadFiles(files);
+
     };
 } else {
     fileupload.className = 'hidden';

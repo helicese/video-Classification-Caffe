@@ -2,7 +2,8 @@ import flask
 from werkzeug import secure_filename
 import datetime
 import os
-import videoClassify as vC
+# import videoClassify as vC
+import timeFusion as tF
 import json
 
 app = flask.Flask(__name__)
@@ -11,9 +12,6 @@ REPO_DIRNAME = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/..
 print ('>>>: ',REPO_DIRNAME)
 UPLOAD_FOLDER = './video'
 ALLOWED_VIDEO_EXTENSIONS = set(['avi', 'mp4', 'MOV'])
-
-# def allowed_file(filename):
-#     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_VIDEO_EXTENSIONS
 
 @app.route('/')
 def index():
@@ -28,7 +26,7 @@ def classify_upload():
         filename = os.path.join(UPLOAD_FOLDER, filename_)
         videofile.save(filename)
         print ('Saving to %s.', filename)
-        # result = vC.classifyVideo(filename)
+        result = tF.getFinal(filename)
     except Exception as err:
         print ('Uploaded image open error: %s', err)
         return flask.render_template(
@@ -36,10 +34,9 @@ def classify_upload():
             result=(False, 'Cannot open uploaded image.')
         )
 
-    result = {'name': 'hello'}
-    return flask.render_template(
-        'index.html', has_result=True, result=json.dumps(result)
-    )
+    print result
+    return json.dumps(result) 
 
 if __name__ == "__main__":
     app.run()
+
