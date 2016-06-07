@@ -19,14 +19,6 @@ ALLOWED_VIDEO_EXTENSIONS = set(['avi', 'mp4', 'MOV'])
 def index():
     return flask.render_template('index.html', has_result=False)
 
-# @app.route('/classify_upload', methods=['POST'])
-# def classify_upload():
-#     if request.method == 'POST':
-#         file = request.files['file']
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
 @app.route('/classify_upload', methods=['POST'])
 def classify_upload():
     try:

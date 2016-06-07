@@ -43,21 +43,27 @@ var tests = {
   }
 }); 
 
-function previewFiles(fileList) {
-    var videoPath = window.URL.createObjectURL(fileList[0]);
-    var str = "<video src='"+videoPath+"' controls></video>"; 
-    console.log(previewDom);
-    holder.innerHTML += str;          
+function previewFile(file) {
+    var fileName = file.name;
+    var filesize = Math.floor((file.size)/1024); 
+    var fileType = file.type; 
+    console.log(fileType.slice(0,5));
+    if(fileType.slice(0,5) == 'video') {
+        var videoPath = window.URL.createObjectURL(file);
+        var str = "<video src='"+videoPath+"' controls></video>"; 
+        holder.innerHTML += str;         
+    } else {
+        alert('Type unsupported!');
+        return false;          
+    }
 }
 
 function uploadFiles(files) {
-    var fileName = files[0].name;
-    var fileSize = files[0].size/1024;
-    var filesize = Math.floor((files[0].size)/1024);  
     var formData = tests.formdata ? new FormData() : null;
     for (var i = 0; i < files.length; i++) {
       if (tests.formdata) formData.append('videofile', files[i]);
-      // previewfile(files[i]);
+
+      previewFile(files[i]);
     }
 
     //use ajax to send the video
@@ -98,7 +104,6 @@ if ('draggable' in document.createElement('span')) {
         // handle files
         console.log(files);
         uploadFiles(files);
-        previewFiles(files);
     };
 } else {
     fileupload.className = 'hidden';
