@@ -133,6 +133,7 @@ def classifyVideo(videoPath):
     finalResult = {}
     finalResult['struct'] = videoInfo['struct']
     finalResult['class'] = classResult
+    finalResult['num'] = videoInfo['num']
     return finalResult
 
 # print classifyVideo(videoPath)

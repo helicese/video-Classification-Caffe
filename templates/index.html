@@ -12,6 +12,10 @@
     <p id="formdata">XHR2's FormData is not supported</p>
     <p id="progress">XHR2's upload progress isn't supported</p>
     <p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>
+    <div id="visualization">
+        <div id="legend"></div>
+        <div id="row"></div>
+    </div>
     <!-- <div id="preview"></div> -->
     {% if has_result %}
         <h1>{{ result }}</h1>
@@ -120,13 +124,3 @@ if ('draggable' in document.createElement('span')) {
 console.log({{ result|safe }})
 </script>
 </html>
-
-<!--
-<form id="formupload" role="form" action="classify_upload" method="post" enctype="multipart/form-data">
-<div class="form-group">
-  <label for="videofile">upload a video:</label>
-  <input type="file" name="videofile" id="videofile">
-  <input type="submit">
-</div>
-</form>
--->

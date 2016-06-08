@@ -36,7 +36,7 @@ def splitVideo(videoPath):
     #videoName = [name, postfix]
     videoName = os.path.splitext(os.path.split(videoPath)[1])
     sRet, sFrame = cap.read()
-    catgory, count = 0, 0
+    catgory, count,sumCount = 0, 0, 0
     result = {}
     progress = []
     imgDir = './img/'+videoName[0]+'/'
@@ -57,6 +57,7 @@ def splitVideo(videoPath):
 
             if posFrame % 10 == 0 :
             	count += 1
+                sumCount += 1
             	name = './img/'+videoName[0]+'/'+formatNum(catgory) + '_' + formatNum(count)+'.jpg'
             	print(name)
             	cv2.imwrite(name, sFrame)
@@ -80,6 +81,7 @@ def splitVideo(videoPath):
 
     result['struct'] = progress
     result['imgDir'] = imgDir
+    result['num'] = sumCount
     getVideoInfo(cap)
     cap.release()
     return result

@@ -50,6 +50,7 @@ def getFinal(videopath):
         result['struct'] = rawData['struct']
         result['raw'] = rawData['class']
         result['new'] = newList
+        result['num'] = rawData['num']
     return result
 
 # print getFinal(videoPath)

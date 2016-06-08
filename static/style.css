@@ -37,4 +37,94 @@ video {
     max-width: 100%;
     /*max-height: 100%;*/
 }
-/*progress:after { content: '%'; }*/
+
+#visualization {
+    width: 800px;
+    height: 600px;
+    background-color: #ccc;
+    border: 1px solid blue;
+    position: relative
+}
+
+#visualization #legend {
+    width: 80%;
+    margin: 0px auto;
+    height: 100px;
+    /*border: 1px solid red;*/
+    vertical-align: middle;
+}
+
+#visualization #row {
+    /*border: 1px solid yellow;*/
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    position: relative;
+    width: 90%;
+    padding: 40px 0px 0px 0px;
+    margin: 0 auto;
+}
+
+#legend .color {
+    display: inline-block;
+    float: left;
+    margin: 10px 20px;
+    width: 20px;
+    height: 10px;
+}
+#legend .text {
+    display: inline-block;
+    float: left;
+    line-height: 10px;
+    margin: 10px 0px;
+    font-size: 10px;
+    width: 60px;
+    height: 10px;
+}
+#row .raw{
+    position: relative;
+    /*top: 20px;*/
+    left: -25px;
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+}
+
+#row .new{
+    position: relative;
+    /*top: 20px;*/
+    left: -28px;
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    background-color: red;
+}
+
+#row .comment {
+    display: inline-block;
+    position: relative;
+    font-size: 15px;
+    line-height: 10px;
+    height: 10px;
+    top: -3px;
+    left: -35px;
+}
+
+#row .seg {
+    display: inline-block;
+    position: absolute;
+    border: 1px solid black;
+    width: 0px;
+    height: 100%;
+    top: 0px;
+    /*left: 90%;*/
+}
+
+#row .sComment {
+    display: inline-block;
+    position: absolute;
+    width: 25px;
+    /*height: 10px;*/
+    top: 100%;
+    font-size: 10px;
+    /*left: 90%;*/
+}
