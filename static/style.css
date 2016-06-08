@@ -26,7 +26,7 @@ h1 {
 }
 
 progress { 
-    width: 60%;
+    width: 40%;
 }
 #preview {
     width: 800px;
@@ -42,7 +42,7 @@ video {
     width: 800px;
     height: 600px;
     background-color: #ccc;
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     position: relative
 }
 
@@ -52,6 +52,13 @@ video {
     height: 100px;
     /*border: 1px solid red;*/
     vertical-align: middle;
+}
+#visualization #circle {
+    position: relative;
+    width: 80%;
+    height: 300px;
+    margin: 10px auto;
+    /*border: 1px solid red;*/
 }
 
 #visualization #row {
@@ -80,6 +87,7 @@ video {
     width: 60px;
     height: 10px;
 }
+
 #row .raw{
     position: relative;
     /*top: 20px;*/
@@ -88,7 +96,6 @@ video {
     width: 20px;
     height: 15px;
 }
-
 #row .new{
     position: relative;
     /*top: 20px;*/
@@ -98,7 +105,6 @@ video {
     height: 15px;
     background-color: red;
 }
-
 #row .comment {
     display: inline-block;
     position: relative;
@@ -108,7 +114,6 @@ video {
     top: -3px;
     left: -35px;
 }
-
 #row .seg {
     display: inline-block;
     position: absolute;
@@ -118,7 +123,6 @@ video {
     top: 0px;
     /*left: 90%;*/
 }
-
 #row .sComment {
     display: inline-block;
     position: absolute;
@@ -127,4 +131,10 @@ video {
     top: 100%;
     font-size: 10px;
     /*left: 90%;*/
+}
+
+#circle .circle {
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
 }

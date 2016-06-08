@@ -1,11 +1,9 @@
-console.log('hello');
-// var data = {"raw": [["seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "backpack"], ["backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "seat belt", "microphone", "ping-pong ball", "mortar", "mortar", "ping-pong ball", "toilet seat", "mortar", "toilet seat", "barrel", "toilet seat", "vault", "toilet seat", "toilet seat", "barrel", "mortar"]], "struct": [0.23], "new": [["seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "seat belt"], ["backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "ping-pong ball", "mortar", "mortar", "ping-pong ball", "mortar", "mortar", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat"]]}
 var data = {"raw": [["seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "backpack"], ["backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "seat belt", "microphone", "ping-pong ball", "mortar", "mortar", "ping-pong ball", "toilet seat", "mortar", "toilet seat", "barrel", "toilet seat", "vault", "toilet seat", "toilet seat", "barrel", "mortar"]], "num": 32, "struct": [0.23], "new": [["seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "seat belt", "seat belt"], ["backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "backpack", "ping-pong ball", "mortar", "mortar", "ping-pong ball", "mortar", "mortar", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat", "toilet seat"]]}
-// console.log(data)
 var rawData = data.raw;
 var container = document.getElementById('visualization');
 var legendContainer = document.getElementById('legend');
 var rowContainer = document.getElementById('row');
+var circleContainer = document.getElementById('circle');
 
 console.log(data);
 
@@ -56,7 +54,6 @@ var showBlock = function(input, tag) {
         } else {
             addBlock(input[j], tag);
         }
-
     }
 
     var lineBreaker = document.createElement('br');
@@ -75,13 +72,51 @@ var showStruct = function(input) {
         segComment.style.left = data.num*20*input[i]-10+'px';
         rowContainer.appendChild(segComment);        
     }
-
-
 }
 
-showBlock(data.raw, 'raw');
-showLegend(colorBase);
-showBlock(data.new, 'new');
-showStruct(data.struct);
+var dataForCircle = function(input) {
+    var circleData = new Int8Array(colorBase.length);
+    for (var j = 0; j < input.length; j++) {
+        if (input[j] instanceof Array) {
+            for (var i = 0; i < input[j].length; i++) {
+                circleData[colorBase.indexOf(input[j][i])]++;
+            }            
+        } else {
+            circleData[colorBase.indexOf(input[j])]++;
+        }
+    }
+    return circleData;
+}
+
+var showCircle = function(data) {
+    var diameter = dataForCircle(data.raw)
+    console.log(diameter);
+    for (var i = 0; i < diameter.length; i++) {
+        var circleDom = document.createElement('div');
+        circleDom.className = 'circle';
+        circleDom.style.width = diameter[i]*20 +'px';
+        circleDom.style.height = diameter[i]*20 + 'px';
+        circleDom.style.backgroundColor = COLORS[i];
+        circleDom.style.top = Math.random()*100 + 'px';
+        circleDom.style.left = Math.random()*600 + 'px';
+        circleDom.title = colorBase[i];
+        circleContainer.appendChild(circleDom);
+    }
+}
+var visualize = function (data) {
+    console.log(typeof(data));
+    if (typeof(data) == 'string') {
+        data = JSON.parse(data);
+    }
+    console.log(typeof(data));
+    colorBase = [];
+    showBlock(data.raw, 'raw');
+    showLegend(colorBase);
+    showBlock(data.new, 'new');
+    showCircle(data);
+    showStruct(data.struct);   
+}
+// visualize(data);
+
 
 
