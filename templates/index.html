@@ -6,119 +6,33 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- used for compatibility issues-->
     <p id="upload" class="hidden"><label>Drag &amp; drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
-    <div id="holder"></div>
     <p id="filereader">File API &amp; FileReader API not supported</p>
     <p id="formdata">XHR2's FormData is not supported</p>
     <p id="progress">XHR2's upload progress isn't supported</p>
-    <p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>
+    
+    <h1>Short Video Classification with Convolutional Neural Networks</h1>
+    <div id="info">
+        <div id="holder">Drag file here to upload</div>
+        <div id="process">
+            <p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>
+            <p class="splitProgress"></p>       
+            <p class="classifyProgress"></p>
+        </div>        
+    </div>
+    
+    <div id="mask"><p id="maskText">upload a short video to see the visualization</p></div>
     <div id="visualization">
         <div id="legend"></div>
         <div id="circle"></div>
         <div id="row"></div>
     </div>
 </body>
-<script src="{{ url_for('static', filename='index.js') }}"></script>
+<script src="{{ url_for('static', filename='visual.js') }}"></script>
+<script src="{{ url_for('static', filename='dragUpload.js') }}"></script>
 <script>
-
-var tests = {
-      filereader: typeof FileReader != 'undefined',
-      // dnd: 'draggable' in document.createElement('span'),
-      formdata: !!window.FormData,
-      progress: "upload" in new XMLHttpRequest
-    }, 
-    support = {
-      filereader: document.getElementById('filereader'),
-      formdata: document.getElementById('formdata'),
-      progress: document.getElementById('progress')
-    },
-    progress = document.getElementById('uploadprogress'),
-    previewDom = document.getElementById('preview'),
-    fileupload = document.getElementById('upload');
-
-"filereader formdata progress".split(' ').forEach(function (api) {
-  if (tests[api] === false) {
-    support[api].className = 'fail';
-  } else {
-    support[api].className = 'hidden';
-  }
-}); 
-
-function previewFile(file) {
-    var fileName = file.name;
-    var filesize = Math.floor((file.size)/1024); 
-    var fileType = file.type; 
-    // console.log(fileType.slice(0,5));
-    if(fileType.slice(0,5) == 'video') {
-        var videoPath = window.URL.createObjectURL(file);
-        var str = "<video src='"+videoPath+"' controls></video>"; 
-        holder.innerHTML += str;         
-    } else {
-        alert('Type unsupported!');
-        return false;          
-    }
-}
-
-function uploadFiles(files) {
-    var formData = tests.formdata ? new FormData() : null;
-    for (var i = 0; i < files.length; i++) {
-      if (tests.formdata) formData.append('videofile', files[i]);
-
-      previewFile(files[i]);
-    }
-
-    //use ajax to send the video
-    if (tests.formdata) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/classify_upload');
-        xhr.onload = function() {
-            progress.value = progress.innerHTML = 100;
-        };
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                console.log(xhr.responseText);
-                visualize(xhr.responseText);
-        }
-    };
-
-      if (tests.progress) {
-        xhr.upload.onprogress = function (event) {
-          if (event.lengthComputable) {
-            var complete = (event.loaded / event.total * 100 | 0);
-            progress.value = progress.innerHTML = complete;
-          }
-        }
-      }
-
-      xhr.send(formData);
-    }   
-}
-
-if ('draggable' in document.createElement('span')) {
-    var holder = document.getElementById('holder');
-    holder.ondragover = function() {
-        this.className = 'hover';
-        return false;
-    };
-    holder.ondragend = function() {
-        this.className = '';
-        return false;
-    };
-    holder.ondrop = function(event) {
-        event.preventDefault();
-        this.className = '';
-        var files = event.dataTransfer.files;
-        // handle files
-        console.log(files);
-        uploadFiles(files);
-
-    };
-} else {
-    fileupload.className = 'hidden';
-    fileupload.querySelector('input').onchange = function () {
-        readfiles(this.files);
-    };
-}
-console.log({{ result|safe }})
+ 
 </script>
+
 </html>

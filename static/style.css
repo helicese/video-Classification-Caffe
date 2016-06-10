@@ -1,21 +1,4 @@
-h1 {
-    color: red;
-}
-
-#holder {
-    border: 10px dashed #ccc;
-    width: 400px;
-    min-height: 200px;
-    margin: 20px 20px;
-}
-
-#holder.hover {
-    border: 10px dashed #0c0;
-}
-#holder video {
-     display: block; 
-     margin: 10px auto; 
-}
+/*for compatibility issues*/
 .fail { 
     background: #c00; 
     padding: 2px; 
@@ -24,40 +7,109 @@ h1 {
 .hidden { 
     display: none !important;
 }
+h1 {
+    text-align: center;
+    width: 90%;
+    margin:0 auto;
+}
+body {
+    width: 96%;
+    margin:20px auto;
+    /*background-color: #000;*/
+    height: 96%;
+}
+
+#info {
+    /*border: 2px solid red;*/
+    /*background-color: #f00;*/
+    margin-right: 810px;
+    /*transform: translate(400px, 0);*/
+    /*transition: transform 2s;*/
+    /*-webkit-transform: transform(1000px, 0);*/
+    /*width: 100%;*/
+    /*margin-right: -800px;*/
+    /*height:100%;*/
+    /*float: left;*/
+}
+
+#holder {
+    border: 10px dashed #ccc;
+    width: 55%;
+    min-height: 200px;
+    margin: 20px auto;
+    padding: 10px 10px;
+    text-align: center;
+    line-height: 200px;
+    position: relative;
+}
+
+#holder.hover {
+    border: 10px dashed #0c0;
+}
+#holder video {
+     display: block; 
+     /*margin: 0px auto; */
+}
+
+#info #process {
+    opacity: 0;
+}
 
 progress { 
-    width: 40%;
-}
-#preview {
-    width: 800px;
-    min-height: 600px;
-    border: 1px solid blue;
+    width: 70%;
 }
 video {
     max-width: 100%;
     /*max-height: 100%;*/
 }
-
-#visualization {
+#mask {
+    background-color: rgba(204, 204, 204, 0.3);
+    /*display: none;*/
+    top: 100px;
+    right: 20px;
     width: 800px;
     height: 600px;
-    background-color: #ccc;
-    /*border: 1px solid blue;*/
-    position: relative
+    text-align: center;
+    line-height: 600px;
+    position: absolute;  
+    opacity: 1;
+    transition: opacity 1s; 
+}
+#maskText {
+    margin-top: 0px;
+    font-size: 35px; 
+    transform: scale(1,1);
+    transition: transform 2s linear;   
+}
+
+#visualization {
+    /*background-color: #ccc;*/
+    /*display: none;*/
+    top: 100px;
+    right: 20px;
+    width: 800px;
+    height: 600px;
+    position: absolute;
 }
 
 #visualization #legend {
     width: 80%;
     margin: 0px auto;
-    height: 100px;
+    height: 120px;
     /*border: 1px solid red;*/
     vertical-align: middle;
+    opacity: 0;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
 }
 #visualization #circle {
     position: relative;
-    width: 80%;
+    width: 90%;
     height: 300px;
     margin: 10px auto;
+    opacity: 0;
+    transition: opacity 1s 1s, top 2s;
+    -webkit-transition: opacity 1s 1s, top 2s;
     /*border: 1px solid red;*/
 }
 
@@ -69,6 +121,9 @@ video {
     width: 90%;
     padding: 40px 0px 0px 0px;
     margin: 0 auto;
+    opacity: 0;
+    transition: opacity 1s 2s;
+    -webkit-transition: opacity 1s 2s;
 }
 
 #legend .color {
@@ -90,6 +145,7 @@ video {
 
 #row .raw{
     position: relative;
+    opacity: 0;
     /*top: 20px;*/
     left: -25px;
     display: inline-block;
@@ -98,6 +154,7 @@ video {
 }
 #row .new{
     position: relative;
+    opacity: 0;
     /*top: 20px;*/
     left: -28px;
     display: inline-block;
@@ -119,17 +176,23 @@ video {
     position: absolute;
     border: 1px solid black;
     width: 0px;
+    opacity: 0;
     height: 100%;
-    top: 0px;
+    top: 100px;
+    transition: opacity 2s, top 1s ;
+    -webkit-transition: opacity 2s, top 1s;
     /*left: 90%;*/
 }
 #row .sComment {
     display: inline-block;
     position: absolute;
     width: 25px;
+    opacity: 0;
     /*height: 10px;*/
     top: 100%;
     font-size: 10px;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
     /*left: 90%;*/
 }
 
@@ -137,4 +200,6 @@ video {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
+    transition: top 1.5s, left 1.5s;
+    -webkit-transition: top 1.5s, left 1.5s;
 }
